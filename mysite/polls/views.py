@@ -1,6 +1,5 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import Http404
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from .models import Question, Choice
 from django.urls import reverse
 from django.views import generic
@@ -55,5 +54,3 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
-
-
