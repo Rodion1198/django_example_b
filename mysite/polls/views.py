@@ -1,9 +1,11 @@
-from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
-from .models import Question, Choice
+from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.views import generic
 from django.utils import timezone
+from django.views import generic
+
+from .models import Choice, Question
+
 
 # def index(request):
 #   return HttpResponse("Hello, world. You're at the polls index.")

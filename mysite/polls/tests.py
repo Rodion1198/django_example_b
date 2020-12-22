@@ -1,10 +1,10 @@
 import datetime
 
 from django.test import TestCase
+from django.urls import reverse
 from django.utils import timezone
 
 from .models import Question
-from django.urls import reverse
 
 
 def create_question(question_text, days):
