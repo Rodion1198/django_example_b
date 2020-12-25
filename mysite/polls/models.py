@@ -27,3 +27,12 @@ class Choice(models.Model):
 
     def __str__(self):
         return self.choice_text
+
+
+class Person(models.Model):
+    username = models.CharField(max_length=200)
+    email = models.EmailField("email")
+    password = models.CharField(max_length=200)
+
+    def __str__(self):
+        return f'Name: {self.username} Email: {self.email} Password: {self.password}'
