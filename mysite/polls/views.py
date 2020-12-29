@@ -1,8 +1,16 @@
+import math
+
+from django.contrib import messages
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404
+from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
+
+
+from polls.forms import ContactFrom
+
 
 from .models import Choice, Question
 
@@ -56,3 +64,21 @@ def vote(request, question_id):
         # with POST data. This prevents data from being posted twice if a
         # user hits the Back button.
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+def contact_form(request):
+    if request.method == "GET":
+        form = ContactFrom()
+    else:
+        form = ContactFrom(request.POST)
+        if form.is_valid():
+            first_cathetus = form.cleaned_data['first_cathetus']
+            second_cathetus = form.cleaned_data['second_cathetus']
+            try:
+                hypotenuse = math.sqrt(first_cathetus ** 2 + second_cathetus ** 2)
+                messages.add_message(request, messages.SUCCESS, 'Message sent')
+            except AssertionError:
+                messages.add_message(request, messages.ERROR, 'Message not sent')
+            return render(request, "polls/contact.html", {'hypotenuse': hypotenuse})
+
+    return render(request, "polls/contact.html", context={"form": form, })
