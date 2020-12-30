@@ -1,6 +1,5 @@
 import math
 
-from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
@@ -81,4 +80,3 @@ def contact_form(request):
             return render(request, "polls/contact.html", {'hypotenuse': hypotenuse})
 
     return render(request, "polls/contact.html", context={"form": form, })
-
