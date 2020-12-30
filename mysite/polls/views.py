@@ -74,11 +74,11 @@ def contact_form(request):
         if form.is_valid():
             first_cathetus = form.cleaned_data['first_cathetus']
             second_cathetus = form.cleaned_data['second_cathetus']
-            try:
+            if first_cathetus and second_cathetus > 0:
                 hypotenuse = math.sqrt(first_cathetus ** 2 + second_cathetus ** 2)
-                messages.add_message(request, messages.SUCCESS, 'Message sent')
-            except AssertionError:
-                messages.add_message(request, messages.ERROR, 'Message not sent')
+            else:
+                raise AssertionError
             return render(request, "polls/contact.html", {'hypotenuse': hypotenuse})
 
     return render(request, "polls/contact.html", context={"form": form, })
+
