@@ -1,17 +1,17 @@
 import math
 
 from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-
 from polls.forms import ContactFrom
 
+from .forms import UserModelForm
 
-from .models import Choice, Question
+from .models import Choice, Question, User   # noqa: I202
 
 
 # def index(request):
@@ -80,3 +80,27 @@ def contact_form(request):
             return render(request, "polls/contact.html", {'hypotenuse': hypotenuse})
 
     return render(request, "polls/contact.html", context={"form": form, })
+
+
+def user_create(request):
+    if request.method == 'POST':
+        form = UserModelForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('user_create')
+    else:
+        form = UserModelForm()
+    return render(request, 'polls/user_create.html', {'form': form})
+
+
+def user_edit(request, pk=None):
+    user = get_object_or_404(User, pk=pk)
+    if request.method == 'POST':
+        form = UserModelForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user_create')
+    else:
+        form = UserModelForm(instance=user)
+    return render(request, 'polls/user_edit.html', {'form': form,
+                                                    'user': user})
