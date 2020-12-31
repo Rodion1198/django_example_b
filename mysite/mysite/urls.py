@@ -17,9 +17,13 @@ from django.contrib import admin
 from django.urls import include, path
 from django.views.generic import RedirectView
 
+from polls.views import user_create, user_edit
 
 urlpatterns = [
     path('', RedirectView.as_view(url='/polls/', permanent=True)),
     path('admin/', admin.site.urls),
     path('polls/', include('polls.urls')),
+    path('user/create', user_create, name='user_create'),
+    path('user/edit/<int:pk>/', user_edit, name='user_edit')
+
 ]
