@@ -1,0 +1,9 @@
+<h1> Edit User</h1>
+
+  <form method="post" action="{% url 'user_edit' user.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <div class="form-actions">
+      <button type="submit">Change</button>
+    </div>
+  </form>
