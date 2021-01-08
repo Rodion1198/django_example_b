@@ -45,3 +45,12 @@ class User(models.Model):
 
     def __str__(self):
         return f"{self.first_name} {self.last_name} {self.email}"
+
+
+class Logg(models.Model):
+    path = models.CharField(max_length=20)
+    method = models.CharField(max_length=20)
+    timestamp = models.DateTimeField()
+
+    def __str__(self):
+        return f"{self.path}, {self.method}, {self.timestamp}"
