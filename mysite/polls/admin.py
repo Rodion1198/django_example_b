@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Choice, Person, Question, User    # noqa: F401
+from .models import Choice, Logg, Person, Question, User   # noqa: F401
 
 
 class ChoiceInline(admin.TabularInline):
@@ -19,4 +19,10 @@ class QuestionAdmin(admin.ModelAdmin):
     search_fields = ['question_text']
 
 
+class LogAdmin(admin.ModelAdmin):
+    model = Logg
+    list_display = ('path', 'method', 'timestamp')
+
+
+admin.site.register(Logg, LogAdmin)
 admin.site.register(User)
