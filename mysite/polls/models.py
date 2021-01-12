@@ -50,7 +50,39 @@ class User(models.Model):
 class Logg(models.Model):
     path = models.CharField(max_length=20)
     method = models.CharField(max_length=20)
-    timestamp = models.DateTimeField()
+    timestamp = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.path}, {self.method}, {self.timestamp}"
+
+
+class Interest(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
+
+
+class City(models.Model):
+    title = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.title
+
+
+class Human(models.Model):
+    name = models.CharField(max_length=200)
+    mobile = models.CharField(max_length=20)
+    interests = models.ManyToManyField(Interest)
+
+    def __str__(self):
+        return self.name
+
+
+class HumanAddress(models.Model):
+    human = models.OneToOneField(Human, on_delete=models.CASCADE)
+    city = models.ForeignKey(City, on_delete=models.CASCADE)
+    street_address = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.human.name + "(" + self.street_address + ")"
