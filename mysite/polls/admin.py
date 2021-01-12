@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import *   # noqa: F401
+from .models import Choice, City, Human, HumanAddress, Interest, Logg   # noqa: F403
 
 
 class ChoiceInline(admin.TabularInline):
