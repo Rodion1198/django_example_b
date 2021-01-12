@@ -131,3 +131,7 @@ dmypy.json
 
 # JetBrains
 .idea/
+
+graph.dot
+graph.png
+erd.dot
