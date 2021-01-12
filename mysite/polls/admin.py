@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Choice, Logg, Person, Question, User   # noqa: F401
+from .models import *   # noqa: F401
 
 
 class ChoiceInline(admin.TabularInline):
@@ -24,5 +24,6 @@ class LogAdmin(admin.ModelAdmin):
     list_display = ('path', 'method', 'timestamp')
 
 
-admin.site.register(Logg, LogAdmin)
-admin.site.register(User)
+admin.site.register([Interest, Human, City, HumanAddress])
+# admin.site.register(Logg, LogAdmin)
+# admin.site.register(User)
