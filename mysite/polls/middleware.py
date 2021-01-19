@@ -1,6 +1,6 @@
-import datetime
-
-from .models import Logg
+# import datetime
+#
+# from .models import Logg
 
 
 # def LogMiddleware(get_response):
