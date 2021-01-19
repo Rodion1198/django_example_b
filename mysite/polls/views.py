@@ -1,6 +1,6 @@
 import math
 
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import get_object_or_404, redirect
 from django.shortcuts import render
 from django.urls import reverse
@@ -14,8 +14,8 @@ from .forms import UserModelForm
 from .models import Choice, Question, User   # noqa: I202
 
 
-# def index(request):
-#   return HttpResponse("Hello, world. You're at the polls index.")
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
 
 
 class IndexView(generic.ListView):
