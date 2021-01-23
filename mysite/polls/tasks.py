@@ -1,6 +1,5 @@
-from datetime import datetime
-
 from celery import shared_task
+
 from django.core.mail import send_mail as my_send_mail
 
 
@@ -19,6 +18,6 @@ def xsum(numbers):
     return sum(numbers)
 
 
-@shared_task()
+@shared_task
 def send_email(from_email, message, time_to_send):
     my_send_mail(from_email, message, time_to_send, ['admin@example.com'])
