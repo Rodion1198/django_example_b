@@ -1,4 +1,5 @@
 import math
+from datetime import timedelta
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -7,11 +8,12 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from polls.forms import ContactFrom
+from polls.forms import ContactFrom, TestForm
 
 from .forms import UserModelForm
 
 from .models import Choice, Question, User   # noqa: I202
+from .tasks import send_email as celery_send_mail
 
 
 def index(request):
@@ -104,3 +106,30 @@ def user_edit(request, pk=None):
         form = UserModelForm(instance=user)
     return render(request, 'polls/user_edit.html', {'form': form,
                                                     'user': user})
+
+
+def test_form(request):
+    if request.method == "GET":
+        form = TestForm()
+    else:
+        form = TestForm(request.POST)
+        if form.is_valid():
+            from_email = form.cleaned_data['from_email']
+            message = form.cleaned_data['message']
+            time_to_send = form.cleaned_data['time_to_send']
+
+            today = timezone.now()
+            future = today + timedelta(days=2)
+            # Если дата в форме будет в прошлом времени, она просто не зайдет в task
+            if time_to_send >= timezone.now():
+                # Если дата будет больше чем на 2 дня вперед, также не зайдет в task
+                if time_to_send < future:
+                    celery_send_mail.apply_async((from_email, message, time_to_send), eta=time_to_send)
+            return redirect('polls:testform')
+    return render(
+        request,
+        "polls/testform.html",
+        context={
+            "form": form,
+        }
+    )
