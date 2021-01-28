@@ -1,8 +1,8 @@
 import os
 
 from celery import Celery
+from celery.schedules import crontab
 
-# set the default Django settings module for the 'celery' program.
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'mysite.settings')
 
 app = Celery('mysite')
@@ -15,6 +15,14 @@ app.config_from_object('django.conf:settings', namespace='CELERY')
 
 # Load task modules from all registered Django app configs.
 app.autodiscover_tasks()
+
+
+app.conf.beat_schedule = {
+    "parsing": {
+        "task": "polls.tasks.parse_quote",
+        "schedule": crontab(hour='1-23/2'),
+    }
+}
 
 
 @app.task(bind=True)
