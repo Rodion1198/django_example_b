@@ -1,29 +1,27 @@
 from django.contrib import admin
 
-from .models import Choice, City, Human, HumanAddress, Interest, Logg   # noqa: F403
+from .models import Quot, QuoteAuthor  # noqa: F403
 
 
-class ChoiceInline(admin.TabularInline):
-    model = Choice
-    extra = 3
+# class ChoiceInline(admin.TabularInline):
+#     model = Choice
+#     extra = 3
+#
+#
+# class QuestionAdmin(admin.ModelAdmin):
+#     fieldsets = [
+#         (None, {'fields': ['question_text']}),
+#         ('Date information', {'fields': ['pub_date']}),
+#     ]
+#     inlines = [ChoiceInline]
+#     list_display = ('question_text', 'pub_date', 'was_published_recently')
+#     list_filter = ['pub_date']
+#     search_fields = ['question_text']
+#
+#
+# class LogAdmin(admin.ModelAdmin):
+#     model = Logg
+#     list_display = ('path', 'method', 'timestamp')
 
 
-class QuestionAdmin(admin.ModelAdmin):
-    fieldsets = [
-        (None, {'fields': ['question_text']}),
-        ('Date information', {'fields': ['pub_date']}),
-    ]
-    inlines = [ChoiceInline]
-    list_display = ('question_text', 'pub_date', 'was_published_recently')
-    list_filter = ['pub_date']
-    search_fields = ['question_text']
-
-
-class LogAdmin(admin.ModelAdmin):
-    model = Logg
-    list_display = ('path', 'method', 'timestamp')
-
-
-admin.site.register([Interest, Human, City, HumanAddress])
-# admin.site.register(Logg, LogAdmin)
-# admin.site.register(User)
+admin.site.register([Quot, QuoteAuthor])
