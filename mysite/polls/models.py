@@ -86,3 +86,24 @@ class HumanAddress(models.Model):
 
     def __str__(self):
         return self.human.name + "(" + self.street_address + ")"
+
+
+class QuoteAuthor(models.Model):
+    author = models.CharField("author", max_length=100, unique=True)
+    born_in = models.CharField("born in", max_length=100)
+    date_of_birth = models.CharField("author", max_length=100, unique=True)
+    description = models.CharField("description", max_length=10000)
+
+    class Meta:
+        ordering = ['author', 'born_in']
+
+    def __str__(self):
+        return f'{self.author}, {self.date_of_birth}, {self.born_in}, {self.description}'
+
+
+class Quot(models.Model):
+    title = models.CharField("title", max_length=500)
+    author = models.ForeignKey("QuoteAuthor", on_delete=models.SET_NULL, null=True)
+
+    def __str__(self):
+        return f'{self.title}'
