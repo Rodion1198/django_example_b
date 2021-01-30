@@ -1,6 +1,6 @@
-from django.contrib import admin
+from django.contrib import admin   # noqa: F401
 
-from .models import Quot, QuoteAuthor  # noqa: F403
+from .models import Quot, QuoteAuthor  # noqa: F401
 
 
 # class ChoiceInline(admin.TabularInline):
@@ -24,4 +24,4 @@ from .models import Quot, QuoteAuthor  # noqa: F403
 #     list_display = ('path', 'method', 'timestamp')
 
 
-admin.site.register([Quot, QuoteAuthor])
+# admin.site.register([Quot, QuoteAuthor])
