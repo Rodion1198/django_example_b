@@ -10,6 +10,7 @@
 <p>Mobile Number: {{ object.mobile }}</p>
 <p>Interest:</p>
 <ul>
+
     {% for item in object.interests.all %}
     <li> {{ item }}</li>
     {% endfor %}
