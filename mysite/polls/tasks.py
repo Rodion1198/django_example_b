@@ -2,16 +2,16 @@ from bs4 import BeautifulSoup
 
 from celery import shared_task
 
-from django.core.mail import send_mail as my_send_mail
+from django.core.mail import send_mail as django_send_mail   # noqa: F821
 
 from polls.models import Quot, QuoteAuthor
 
 import requests
 
 
-# @shared_task
-# def send_email(from_email, message, time_to_send):
-#     my_send_mail(from_email, message, time_to_send, ['admin@example.com'])
+@shared_task
+def send_mail(subject, message, from_email):
+    django_send_mail(subject, message, from_email, ['admin@example.com'])
 
 
 @shared_task
@@ -59,4 +59,4 @@ def parse_quote():
         else:
             break
         if last_page is True:
-            my_send_mail('Quotes is over!', 'All quotes added!', 'rodion@test.com', ['admin@example.com'])
+            django_send_mail('Quotes is over!', 'All quotes added!', 'rodion@test.com', ['admin@example.com'])
