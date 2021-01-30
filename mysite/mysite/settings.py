@@ -48,9 +48,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    'django_extensions',
+    'catalog.apps.CatalogConfig',
     'polls.apps.PollsConfig',
+
     'django_celery_results',
+    'django_extensions',
 
 ]
 
