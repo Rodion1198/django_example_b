@@ -30,6 +30,8 @@ urlpatterns = [
     path('polls/', include('polls.urls')),
     path('user/create', user_create, name='user_create'),
     path('user/edit/<int:pk>/', user_edit, name='user_edit'),
+    path('catalog/', include('catalog.urls')),
+
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 if settings.DEBUG:
