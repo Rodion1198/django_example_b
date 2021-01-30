@@ -12,6 +12,8 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
+from django.contrib.messages import constants as message_constants
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -130,8 +132,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-# TIME_ZONE = 'UTC'
-TIME_ZONE = 'Europe/Kiev'
+TIME_ZONE = 'UTC'
+
 
 USE_I18N = True
 
@@ -154,6 +156,15 @@ GRAPH_MODELS = {
     'group_models': True,
 }
 
+# Messages
+MESSAGE_TAGS = {
+    # message_constants.DEBUG: 'debug',
+    # message_constants.INFO: 'info',
+    # message_constants.SUCCESS: 'success',
+    # message_constants.WARNING: 'warning',
+    message_constants.ERROR: 'danger',
+}
+
 # silk
 SILKY_PYTHON_PROFILER = True
 
@@ -165,4 +176,4 @@ CELERY_BROKER_URL = 'amqp://localhost'
 CELERY_ACCEPT_CONTENT = ['application/json']
 CELERY_TASK_SERIALIZER = 'json'
 CELERY_RESULT_SERIALIZER = 'json'
-CELERY_TIMEZONE = TIME_ZONE
+CELERY_TIMEZONE = 'UTC'
