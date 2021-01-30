@@ -1,5 +1,4 @@
 import math
-from datetime import timedelta
 
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404, redirect
@@ -13,7 +12,7 @@ from polls.forms import ContactFrom, TestForm
 from .forms import UserModelForm
 
 from .models import Choice, Question, User   # noqa: I202
-from .tasks import send_email as celery_send_mail
+from .tasks import send_mail as celery_send_mail
 
 
 def index(request):
@@ -114,22 +113,10 @@ def test_form(request):
     else:
         form = TestForm(request.POST)
         if form.is_valid():
+            subject = 'Напоминание'
             from_email = form.cleaned_data['from_email']
             message = form.cleaned_data['message']
             time_to_send = form.cleaned_data['time_to_send']
-
-            today = timezone.now()
-            future = today + timedelta(days=2)
-            # Если дата в форме будет в прошлом времени, она просто не зайдет в task
-            if time_to_send >= timezone.now():
-                # Если дата будет больше чем на 2 дня вперед, также не зайдет в task
-                if time_to_send < future:
-                    celery_send_mail.apply_async((from_email, message, time_to_send), eta=time_to_send)
-            return redirect('polls:testform')
-    return render(
-        request,
-        "polls/testform.html",
-        context={
-            "form": form,
-        }
-    )
+            celery_send_mail.apply_async((subject, message, from_email), eta=time_to_send)
+            return redirect('polls:test-form')
+    return render(request, "polls/testform.html", context={"form": form})
