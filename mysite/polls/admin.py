@@ -24,4 +24,4 @@ from .models import Quot, QuoteAuthor  # noqa: F401
 #     list_display = ('path', 'method', 'timestamp')
 
 
-# admin.site.register([Quot, QuoteAuthor])
+admin.site.register([Quot, QuoteAuthor])
