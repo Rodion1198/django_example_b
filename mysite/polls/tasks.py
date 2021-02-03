@@ -22,7 +22,7 @@ def parse_quote():
     LINK = 'https://quotes.toscrape.com'
 
     while not last_page:
-        url = f'https://quotes.toscrape.com/page/{page}'
+        url = f'{LINK}/page/{page}'
         r = requests.get(url)
         soup = BeautifulSoup(r.content, 'html.parser')
         quotes = soup.findAll('div', {'class': 'quote'})
@@ -32,11 +32,11 @@ def parse_quote():
                 break
             else:
                 title = item.select('.text')[0].contents[0]
-                if Quot.objects.filter(title=title):
-                    pass
+                if Quot.objects.exists(title=title):
+                    continue
                 else:
                     author = item.select('.author')[0].contents[0]
-                    if QuoteAuthor.objects.filter(author=author):
+                    if QuoteAuthor.objects.exists(author=author):
                         saved_author = QuoteAuthor.objects.get(author=author)
                     else:
                         link_author = LINK + item.find_all('a')[0].get('href')

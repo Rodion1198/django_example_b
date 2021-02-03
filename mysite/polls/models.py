@@ -59,7 +59,7 @@ class Logg(models.Model):
 class QuoteAuthor(models.Model):
     author = models.CharField("author", max_length=100, unique=True)
     born_in = models.CharField("born in", max_length=100)
-    date_of_birth = models.CharField("author", max_length=100, unique=True)
+    date_of_birth = models.CharField("author", max_length=100)
     description = models.CharField("description", max_length=10000)
 
     class Meta:
