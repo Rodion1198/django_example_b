@@ -11,7 +11,7 @@ from polls.forms import ContactFrom, TestForm
 
 from .forms import UserModelForm
 
-from .models import Choice, Question, User   # noqa: I202
+from .models import Choice, Question, Quot, User   # noqa: I202
 from .tasks import send_mail as celery_send_mail
 
 
@@ -120,3 +120,10 @@ def test_form(request):
             celery_send_mail.apply_async((subject, message, from_email), eta=time_to_send)
             return redirect('polls:test-form')
     return render(request, "polls/testform.html", context={"form": form})
+
+
+class QuotesListView(generic.ListView):
+    model = Quot
+    paginate_by = 100
+
+    queryset = Quot.objects.prefetch_related('author').all()
