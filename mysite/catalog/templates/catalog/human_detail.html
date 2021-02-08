@@ -1,11 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title> Human detail </title>
 </head>
 <body>
-<h1>{{ object.first_name }} {{ object.last_name }}</h1>
+    {% load custom_tag %}
+<h1>{{ object.first_name|forbidden_words }} {{ object.last_name|forbidden_words }}</h1>
 <p>{{ object.content }}</p>
 <p>Mobile Number: {{ object.mobile }}</p>
 <p>Interest:</p>
@@ -16,4 +16,4 @@
     {% endfor %}
 </ul>
 </body>
-</html>
+{% endblock %}

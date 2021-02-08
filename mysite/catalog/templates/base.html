@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <h2>Random Quote!</h2>
+    {% load custom_tag %}
+    <h3> {% random_quotes %} </h3>
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+</body>
+</html>

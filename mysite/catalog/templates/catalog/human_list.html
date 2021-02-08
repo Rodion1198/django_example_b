@@ -1,13 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+{% block content %}
 <head>
     <meta charset="UTF-8">
     <title>Human list</title>
 </head>
 <h3>Humans</h3>
 <ul>
+    {% load custom_tag %}
     {% for humans in object_list %}
-        <li> {{ humans.first_name }} {{ humans.last_name }}</li>
+        <li> Human: <a href="human/{{ humans.id }}"> {{ humans.first_name|forbidden_words }} {{ humans.last_name|forbidden_words }}</a></li>
     {% endfor %}
 </ul>
 
@@ -28,3 +28,4 @@
         {% endif %}
     </span>
 </div>
+{% endblock %}
