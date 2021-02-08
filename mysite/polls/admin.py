@@ -1,7 +1,5 @@
 from django.contrib import admin   # noqa: F401
 
-from .models import Quot, QuoteAuthor  # noqa: F401
-
 
 # class ChoiceInline(admin.TabularInline):
 #     model = Choice
@@ -22,6 +20,3 @@ from .models import Quot, QuoteAuthor  # noqa: F401
 # class LogAdmin(admin.ModelAdmin):
 #     model = Logg
 #     list_display = ('path', 'method', 'timestamp')
-
-
-admin.site.register([Quot, QuoteAuthor])

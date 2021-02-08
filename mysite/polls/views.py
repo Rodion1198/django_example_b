@@ -7,12 +7,11 @@ from django.urls import reverse
 from django.utils import timezone
 from django.views import generic
 
-from polls.forms import ContactFrom, TestForm
+from polls.forms import ContactFrom
 
 from .forms import UserModelForm
 
-from .models import Choice, Question, Quot, User   # noqa: I202
-from .tasks import send_mail as celery_send_mail
+from .models import Choice, Question, User   # noqa: I202
 
 
 def index(request):
@@ -105,25 +104,3 @@ def user_edit(request, pk=None):
         form = UserModelForm(instance=user)
     return render(request, 'polls/user_edit.html', {'form': form,
                                                     'user': user})
-
-
-def test_form(request):
-    if request.method == "GET":
-        form = TestForm()
-    else:
-        form = TestForm(request.POST)
-        if form.is_valid():
-            subject = 'Напоминание'
-            from_email = form.cleaned_data['from_email']
-            message = form.cleaned_data['message']
-            time_to_send = form.cleaned_data['time_to_send']
-            celery_send_mail.apply_async((subject, message, from_email), eta=time_to_send)
-            return redirect('polls:test-form')
-    return render(request, "polls/testform.html", context={"form": form})
-
-
-class QuotesListView(generic.ListView):
-    model = Quot
-    paginate_by = 100
-
-    queryset = Quot.objects.prefetch_related('author').all()
