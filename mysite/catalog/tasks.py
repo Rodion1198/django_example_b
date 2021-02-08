@@ -1,10 +1,10 @@
 from bs4 import BeautifulSoup
 
+from catalog.models import Quot, QuoteAuthor
+
 from celery import shared_task
 
 from django.core.mail import send_mail as django_send_mail   # noqa: F821
-
-from polls.models import Quot, QuoteAuthor
 
 import requests
 
