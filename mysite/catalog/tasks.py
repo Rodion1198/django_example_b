@@ -32,11 +32,11 @@ def parse_quote():
                 break
             else:
                 title = item.select('.text')[0].contents[0]
-                if Quot.objects.exists(title=title):
+                if Quot.objects.filter(title=title):
                     continue
                 else:
                     author = item.select('.author')[0].contents[0]
-                    if QuoteAuthor.objects.exists(author=author):
+                    if QuoteAuthor.objects.filter(author=author):
                         saved_author = QuoteAuthor.objects.get(author=author)
                     else:
                         link_author = LINK + item.find_all('a')[0].get('href')
