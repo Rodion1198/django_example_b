@@ -1,8 +1,8 @@
+from catalog.models import Quot, QuoteAuthor
+
 from django.core.management.base import BaseCommand, CommandError
 
 from faker import Faker
-
-from polls.models import Quot, QuoteAuthor
 
 
 class Command(BaseCommand):
