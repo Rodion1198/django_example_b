@@ -4,11 +4,7 @@ from bs4 import BeautifulSoup
 
 from django import template
 
-import redis
-
 import requests
-
-redis = redis.Redis()
 
 register = template.Library()
 
