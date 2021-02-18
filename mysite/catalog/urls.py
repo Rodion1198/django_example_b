@@ -12,5 +12,6 @@ urlpatterns = [
     path('quotes/', views.QuotesListView.as_view(), name='quot-list'),
 
     path('send_email/', views.test_form, name='test-form'),
+    path('contact_ajax/', views.contact_form_ajax, name='contact-ajax'),
 
 ]
