@@ -19,3 +19,9 @@ class TestForm(forms.Form):
             raise forms.ValidationError('Invalid input - date can\'t be 2 days ahead')
 
         return data
+
+
+class ContactForm(forms.Form):
+    from_email = forms.EmailField(required=True)
+    subject = forms.CharField(required=True)
+    message = forms.CharField(widget=forms.Textarea, required=True)
